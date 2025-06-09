@@ -1,7 +1,5 @@
 package com.abutua.productbackend.Controllers;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,27 +15,19 @@ import com.abutua.productbackend.repositories.CategoryRepository;
 @RestController
 @CrossOrigin
 public class CategoryController {
-    
-    //private List<Category> categories = Arrays.asList( new Category(1,"Produção Própria"),
-      //                                                 new Category(2,"Nacional"),
-        //                                               new Category(3,"Importado"),
-          //                                             new Category(4,"Premium")
-    //);
  
     @Autowired
    private CategoryRepository categoryRepository;
 
 
-    //@GetMapping("categories/{id}")
-    //public ResponseEntity<Category> getCategory(@PathVariable int id) {
-       // Category cat = categories.stream()
-        //                        .filter(p -> p.getId() == id)
-            //                    .findFirst()
-              //                  .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+    @GetMapping("categories/{id}")
+    public ResponseEntity<Category> getCategory(@PathVariable int id) {
+        Category category = categoryRepository.findById(id)
+                                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
         
         
-       // return ResponseEntity.ok(cat);
-  //  }
+        return ResponseEntity.ok(category);
+   }
 
     @GetMapping("categories")
     public List<Category> getCategories() {
